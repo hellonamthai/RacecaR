@@ -32,9 +32,10 @@ public class CarsManager : MonoBehaviour {
         for (int i = 0; i < 12; i++)
         {
             //creating a car obstacle randomly from my array and setting it at a random position on the platform
-            GameObject obstacleInstance = Instantiate(obstacleArray[Random.Range(0, obstacleArray.Length)], new Vector3(Random.Range(-9, 9), 0.5f, Random.Range(12, 110)), Quaternion.Euler(new Vector3(0, 180, 0)));
+            GameObject obstacleInstance = Instantiate(obstacleArray[Random.Range(0, obstacleArray.Length)],
+                                                      new Vector3(Random.Range(-9, 9), 0.5f, Random.Range(12, 110)), Quaternion.Euler(0, 180, 0));
 
-
+                            
             //if the obstacle is a bus, we need to move instantiate it a bit higher
             if (obstacleInstance.tag == "Bus")
             {

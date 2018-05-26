@@ -39,12 +39,12 @@ public class Player : MonoBehaviour {
         }
         else
         {
-            //if the car was moving right but isn't anymore, slowly rotate it back to starting position
+            //if the car was moving right but isn't anymore, slowly rotate it left back to starting position
             if (playerPosition.rotation.eulerAngles.y < 30 && playerPosition.rotation.eulerAngles.y > 1)
             {
                 playerPosition.Rotate(Vector3.down);
             }
-            //if the car was moving left but isn't anymore, slowly rotate it back to starting position
+            //if the car was moving left but isn't anymore, slowly rotate it right back to starting position
             else if (playerPosition.rotation.eulerAngles.y > 330 && playerPosition.rotation.eulerAngles.y < 359)
             {
                 playerPosition.Rotate(Vector3.up);

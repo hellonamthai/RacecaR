@@ -28,7 +28,7 @@ public class BoardManager : MonoBehaviour {
         thisInstance.transform.SetParent(boardHolder);
 
         //Setting up the recycling box
-        thisInstance = Instantiate(recyclingBox, new Vector3(0.07f, 2f, -10), Quaternion.identity);
+        thisInstance = Instantiate(recyclingBox, new Vector3(0.07f, 24, -10), Quaternion.identity);
         thisInstance.transform.SetParent(boardHolder);
 
         //Setting up our tiles that lie on our road
