@@ -8,19 +8,17 @@ public class ScrollingObject : MonoBehaviour {
     public int maxSpeed = 30;
 
     private Rigidbody myRigidbody;
-    private GameObject playerCar;
 
 	void Start()
 	{
         //adding a force to the game object
         myRigidbody = GetComponent<Rigidbody>();
         myRigidbody.velocity = new Vector3(0, 0, -Random.Range(minSpeed, maxSpeed));
-        playerCar = GameObject.FindWithTag("Player");
 	}
 
 	void Update()
 	{
-        if(playerCar.GetComponent<Player>().carHit == true){
+        if(GameManager.instance.gameOver == true){
             myRigidbody.isKinematic = true;
         }
 	}

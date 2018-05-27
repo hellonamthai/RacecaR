@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Obstacle : ScrollingObject {
 
+    private bool currentlyDodging = false;
+    private float raycastDistance = 7f;
+
 	// Use this for initialization
 	void Awake () {
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
@@ -17,52 +20,92 @@ public class Obstacle : ScrollingObject {
         int layerMask = 1 << LayerMask.NameToLayer("Obstacle");
 
         //shooting a ray in front of the car to see if it's about to bump into another car
-        //shooting from the left, center, and right of the car
+        //shooting from the left and right of the car
         RaycastHit hitLeft;
         RaycastHit hitRight;
-        RaycastHit hit;
 
         Vector3 posLeft = new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.z);
         Vector3 posRight = new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z);
 
-        bool didHitLeft = Physics.Raycast(posLeft, transform.TransformDirection(Vector3.forward), out hitLeft, 5, layerMask);
-        bool didHitRight = Physics.Raycast(posRight, transform.TransformDirection(Vector3.forward), out hitRight, 5, layerMask);
-        bool didHit = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 5, layerMask);
+        bool didHitLeft = Physics.Raycast(posLeft, transform.TransformDirection(Vector3.forward), out hitLeft, raycastDistance, layerMask);
+        bool didHitRight = Physics.Raycast(posRight, transform.TransformDirection(Vector3.forward), out hitRight, raycastDistance, layerMask);
+
+        bool dodgeLeft;
 
         //if any of our raycasts hit, meaning there is another car in front
-        if (didHitLeft || didHitRight || didHit)
+        if (didHitLeft || didHitRight && !currentlyDodging)
         {
-            Dodge();
+            //if the car is already too far on the right
+            if(transform.position.x > GameManager.instance.GetComponent<BoardManager>().roadRightEdgeX-1){
+                dodgeLeft = true;
+            }
+            //if the car is already too far on the left
+            else if(transform.position.x < GameManager.instance.GetComponent<BoardManager>().roadLeftEdgeX+1){
+                dodgeLeft = false;
+            }
+            else {
+                //if the car's left raycast hit, it should dodge to the right
+                if (didHitLeft)
+                {
+                    dodgeLeft = false;
+                }
+                //if the car's right raycast hit, it should dodge to the left
+                else dodgeLeft = true;
+            }
+
+            IEnumerator dodgeCoroutine = Dodge(dodgeLeft);
+            StartCoroutine(dodgeCoroutine);
+
         }
 	}
 
     //makes obstacle cars dodge around each other
-    void Dodge(){
-        GetComponent<Transform>().rotation = Quaternion.Euler(0, 200, 0);
-        StartCoroutine("SmoothDodge");
-        StartCoroutine("SmoothRotateBack");
+    IEnumerator Dodge(bool dodgeLeft){
+
+        //choosing the car's initial turn direction
+        float turnDirection;
+        if (dodgeLeft)
+        {
+            turnDirection = 200;
+        }
+        else turnDirection = 160;
+
+
+        //turning the car so it can dodge
+        GetComponent<Transform>().rotation = Quaternion.Euler(0, turnDirection, 0);
+
+        //calling the dodge coroutine with the boolean parameter
+        currentlyDodging = true;
+        IEnumerator smoothDodgeCoroutine= SmoothDodge(dodgeLeft);
+        yield return StartCoroutine(smoothDodgeCoroutine);
+        currentlyDodging = false;
+
+        //turning the car back to it's original orientation
+        GetComponent<Transform>().rotation = Quaternion.Euler(0, 180, 0);
     }
 
 
 
     //coroutine that lets obstacle cars swerve around cars while updating frame by frame
-    IEnumerator SmoothDodge()
+    IEnumerator SmoothDodge(bool dodgeLeft)
     {
-        //each frame move the car 0.1 to the left or right
-        for (float f = 0.1f; f < 0.5f; f += 0.1f)
+        //choosing dodge direction
+        float dodgeDirection;
+        if (dodgeLeft)
         {
-            transform.Translate(new Vector3(0.1f, 0, 0), Space.World);
-            yield return null;
+            dodgeDirection = -1;
         }
-    }
+        else dodgeDirection = 1;
 
-    //coroutine that lets obstacle cars smoothly rotate back after rotating to swerve around cars
-    IEnumerator SmoothRotateBack()
-    {
-        while (transform.rotation.eulerAngles.y > 180)
+
+        //each frame move the car 0.01 to the left or right
+        for (int i = 1; i < 7; i++)
         {
-            transform.Rotate(Vector3.down);
-            yield return null;
+            transform.Translate(new Vector3(0.1f * dodgeDirection, 0, 0), Space.World);
+            if(Time.time < 10){
+                yield return new WaitForSeconds(0.1f);
+            }
+            else yield return null;
         }
     }
 }

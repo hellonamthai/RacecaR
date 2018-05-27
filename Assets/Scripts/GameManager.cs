@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour {
     //implementing singleton design pattern
 
     public static GameManager instance = null;
+    public int playerScore = 0;
+    public bool gameOver = false;
 
     // Use this for initialization
     void Awake()
@@ -20,4 +22,11 @@ public class GameManager : MonoBehaviour {
             //...destroy this one because it is a duplicate.
             Destroy(gameObject);
     }
+
+	void Update()
+	{
+        print(playerScore);
+	}
+
+
 }

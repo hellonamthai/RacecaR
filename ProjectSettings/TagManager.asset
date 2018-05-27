@@ -7,6 +7,7 @@ TagManager:
   - Tile
   - Bus
   - Terrain
+  - Road
   layers:
   - Default
   - TransparentFX

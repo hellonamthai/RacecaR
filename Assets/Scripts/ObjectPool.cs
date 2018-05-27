@@ -24,7 +24,7 @@ public class ObjectPool : MonoBehaviour {
             //if bus, spawn it a bit higher and have it's velocity be slower
             if (other.tag == "Bus")
             {
-                other.GetComponent<Transform>().Translate(new Vector3(0, 0.5f, 0));
+                other.GetComponent<Transform>().Translate(new Vector3(0, 0.3f, 0));
                 other.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -Random.Range(Time.time + 10, Time.time + 30)*0.5f);
             }
         }
