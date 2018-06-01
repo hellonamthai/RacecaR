@@ -7,10 +7,15 @@ public class Player : MonoBehaviour {
 
     public static Player instance = null;
 
+    public delegate void gameOverDelegate();
+    public static event gameOverDelegate GameOver;
+
     private Transform playerPosition;
     private int direction;
     private float playerSwerveSpeed = 0.3f;
     private int turnAngle = 20;
+    private GameObject myCamera;
+    private bool playerCanMove;
 
 
 
@@ -28,12 +33,18 @@ public class Player : MonoBehaviour {
 
         //initializing the player position and the edges of the road
         playerPosition = GetComponent<Transform>();
+
+        //findin a reference to the main camera
+        myCamera = GameObject.FindWithTag("MainCamera");
+        playerCanMove = true;
     }
 
 
 	// Update is called once per frame
 	void FixedUpdate () {
-        Swerve();
+        if(playerCanMove){
+            Swerve();
+        }
     }
 
     private void Swerve(){
@@ -48,7 +59,9 @@ public class Player : MonoBehaviour {
             playerPosition.rotation = Quaternion.Euler(0, 1*turnAngle, 0);
             //can only swerve more to the right if not at the right end of the road
             if(playerPosition.position.x < GameManager.instance.GetComponent<BoardManager>().roadRightEdgeX-0.5f){
+                //moving both the player and the camera
                 playerPosition.Translate(Vector3.right * playerSwerveSpeed, Space.World);
+                myCamera.transform.Translate(Vector3.right * playerSwerveSpeed, Space.World);
             }
         }
         else if (direction < 0)
@@ -57,7 +70,9 @@ public class Player : MonoBehaviour {
             playerPosition.rotation = Quaternion.Euler(0, -1*turnAngle, 0);
             //can only swerve more to the right if not at the right end of the road
             if(playerPosition.position.x > GameManager.instance.GetComponent<BoardManager>().roadLeftEdgeX+0.5f){
+                //moving both the player and the camera
                 playerPosition.Translate(Vector3.left * playerSwerveSpeed, Space.World);
+                myCamera.transform.Translate(Vector3.left * playerSwerveSpeed, Space.World);
             }
         }
         else
@@ -79,11 +94,12 @@ public class Player : MonoBehaviour {
 	private void OnTriggerEnter(Collider other)
 	{
         if(other.tag == "Tile"){
-            GameManager.instance.playerScore++;
+            GameManager.instance.IncreaseScore();
         }
         else {
-            print(GameManager.instance.playerScore);
-            GameManager.instance.gameOver = true;
+            //calling the delegate
+            playerCanMove = false;
+            GameOver();
         }
 	}
 

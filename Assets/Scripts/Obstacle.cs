@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class Obstacle : ScrollingObject {
 
-    private bool currentlyDodging = false;
-    private float raycastDistance = 7f;
+    private bool currentlyDodging;
+    private float raycastDistance;
 
 	// Use this for initialization
 	void Awake () {
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
         gameObject.layer = LayerMask.NameToLayer("Obstacle");
+        currentlyDodging = false;
+        raycastDistance = 7f;
+        //if the obstacle car is a bus, we need to cast our ray further
+        if(gameObject.tag == "Bus"){
+            raycastDistance = 9f;
+        }
 	}
 	
 	// Update is called once per frame
@@ -102,8 +108,9 @@ public class Obstacle : ScrollingObject {
         for (int i = 1; i < 7; i++)
         {
             transform.Translate(new Vector3(0.1f * dodgeDirection, 0, 0), Space.World);
-            if(Time.time < 10){
-                yield return new WaitForSeconds(0.1f);
+            //changing how long it takes to dodge based on in game time
+            if(Time.time < 15){
+                yield return new WaitForSeconds(0.1f-Time.time*0.05f);
             }
             else yield return null;
         }

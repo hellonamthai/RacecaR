@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScrollingObject : MonoBehaviour {
+
+    public static ScrollingObject instance;
     
     public int minSpeed = 10;
     public int maxSpeed = 30;
@@ -11,16 +13,28 @@ public class ScrollingObject : MonoBehaviour {
 
 	void Start()
 	{
-        //adding a force to the game object
         myRigidbody = GetComponent<Rigidbody>();
-        myRigidbody.velocity = new Vector3(0, 0, -Random.Range(minSpeed, maxSpeed));
 	}
 
-	void Update()
+	public void AddForce()
 	{
-        if(GameManager.instance.gameOver == true){
-            myRigidbody.isKinematic = true;
-        }
+        //adding a force to the game object
+        myRigidbody.velocity = new Vector3(0, 0, -Random.Range(minSpeed, maxSpeed)*Time.deltaTime*60);
 	}
+
+    void FreezeMotion(){
+        myRigidbody.isKinematic = true;
+    }
+
+    private void OnEnable()
+    {
+        Player.GameOver += FreezeMotion;
+        UIManager.objectsBeginMoving += AddForce;
+    }
+    private void OnDisable()
+    {
+        Player.GameOver -= FreezeMotion;
+        UIManager.objectsBeginMoving -= AddForce;
+    }
 
 }

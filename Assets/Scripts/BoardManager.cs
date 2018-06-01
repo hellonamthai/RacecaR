@@ -8,21 +8,21 @@ public class BoardManager : MonoBehaviour {
     public GameObject recyclingBox;
     public GameObject road;
 
-    public float roadLeftEdgeX;
-    public float roadRightEdgeX;
+    [HideInInspector]public float roadLeftEdgeX;
+    [HideInInspector]public float roadRightEdgeX;
 
     private Transform boardHolder;
 
 	void Awake()
 	{
+        boardHolder = new GameObject("Board").transform;
         SetUpBoard();
+        //Used to put all the road and obstacle components under one board parent; purely organizational
+        boardHolder.SetParent(GetComponent<GameManager>().transform);
 	}
 
 
     public void SetUpBoard(){
-
-        //Used to put all the road and obstacle components under one board parent; purely organizational
-        boardHolder = new GameObject("Board").transform;
 
         //Setting up the road
         GameObject roadInstance = Instantiate(road, new Vector3(0, 0, 55), Quaternion.identity);

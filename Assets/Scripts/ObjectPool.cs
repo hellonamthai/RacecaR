@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour {
 
+    private float minSpeedScale = 0.2f;
+    private float maxSpeedScale = 0.6f;
+
     //recycling obstacles by placing them at the end again and giving them a random x position and speed
 	private void OnTriggerEnter(Collider other)
 	{
@@ -19,13 +22,13 @@ public class ObjectPool : MonoBehaviour {
         else {
             //resetting the obstacle cars to the end of the platform at a random x position and increase their speed
             other.GetComponent<Transform>().position = new Vector3(Random.Range(-9, 9), 0.5f, 110f);
-            other.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -Random.Range(Time.time*0.3f + 10, Time.time*0.9f + 30));
+            other.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -Random.Range(Time.time*minSpeedScale + 10, Time.time*maxSpeedScale + 30)*Time.deltaTime*60);
 
             //if bus, spawn it a bit higher and have it's velocity be slower
             if (other.tag == "Bus")
             {
                 other.GetComponent<Transform>().Translate(new Vector3(0, 0.3f, 0));
-                other.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -Random.Range(Time.time + 10, Time.time + 30)*0.5f);
+                other.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -Random.Range(Time.time*maxSpeedScale + 10, Time.time*maxSpeedScale + 30)*0.5f*Time.deltaTime*60);
             }
         }
 	}
