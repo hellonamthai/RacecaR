@@ -19,7 +19,7 @@ public class ScrollingObject : MonoBehaviour {
 	public void AddForce()
 	{
         //adding a force to the game object
-        myRigidbody.velocity = new Vector3(0, 0, -Random.Range(minSpeed, maxSpeed)*Time.deltaTime*60);
+        myRigidbody.velocity = new Vector3(0, 0, -Random.Range(minSpeed, maxSpeed));
 	}
 
     void FreezeMotion(){

@@ -9,12 +9,12 @@ public class GameManager : MonoBehaviour {
     //implementing singleton design pattern
 
     public static GameManager instance = null;
+    public int playerScore;
 
     private GameData gameData;
     private Text gameOverPanelText;
     private Text distanceText;
-    private int playerScore;
-    private string gameDataProjectFilePath = "/StreamingAssets/data.json";
+    private string gameDataProjectFilePath = "data.json";
 
     // Use this for initialization
     void Awake()
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour {
 
 	void Update()
 	{
-        distanceText.text = "Distance: " + playerScore + "m";
+        distanceText.text = playerScore + "m";
 	}
 
     public void IncreaseScore()
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour {
     private void FinishedGame(){
         gameData.UpdateHighScore(playerScore);
         gameOverPanelText = GameObject.Find("FinalScoreText").GetComponent<Text>();
-        gameOverPanelText.text = "Distance drove: " + playerScore + "m"  + "\nYour Best: " + gameData.highScore + "m";
+        gameOverPanelText.text = "Distance driven:  " + playerScore + "m"  + "\nYour Best:  " + gameData.highScore + "m";
         SaveGameData();
     } 
 
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour {
     //loads the game data from the json file into an instance of GameData
     private void LoadGameData()
     {
-        string filePath = Application.dataPath + gameDataProjectFilePath;
+        string filePath = Application.persistentDataPath + "/Raw" + gameDataProjectFilePath;
 
         if (File.Exists(filePath))
         {
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour {
 
         string dataAsJson = JsonUtility.ToJson(gameData);
 
-        string filePath = Application.dataPath + gameDataProjectFilePath;
+        string filePath = Application.persistentDataPath + "/Raw" + gameDataProjectFilePath;
         File.WriteAllText(filePath, dataAsJson);
 
     }

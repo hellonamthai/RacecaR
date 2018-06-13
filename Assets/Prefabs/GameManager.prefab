@@ -35,8 +35,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1051316311865626}
-  m_LocalRotation: {x: -0.022737315, y: -0.13646916, z: -0.014516385, w: 0.990277}
-  m_LocalPosition: {x: -13.9, y: 25.6, z: -17.7}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2713.9, y: 25.6, z: -17.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -53,15 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20de9c0c8a334bb6a23007223f73e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allCars:
-  - {fileID: 1646981259178978, guid: 558e73634b44f39458a7ea4a8a56976a, type: 2}
-  - {fileID: 1646981259178978, guid: 6d56b50e711a5204d9059e0c99b70eda, type: 2}
-  - {fileID: 1646981259178978, guid: 1eb894c97da32c940a90228cac9bea1c, type: 2}
-  - {fileID: 1646981259178978, guid: 388d83314c9e51c40956fb6908979eee, type: 2}
-  - {fileID: 1959030373088092, guid: 6717c7c2d677a9f439f502029ec5b22a, type: 2}
-  - {fileID: 1959030373088092, guid: d3a9898e22901924b98de4fff69bf9e6, type: 2}
-  - {fileID: 1646981259178978, guid: 6f993fa0f8fc9f045888054c717741b4, type: 2}
-  - {fileID: 1646981259178978, guid: 7500aebe3382441458c34a315bb6842b, type: 2}
+  playerScore: 0
 --- !u!114 &114544454900499382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -77,6 +69,8 @@ MonoBehaviour:
   recyclingBox: {fileID: 1221767220602116, guid: cd248ecc01c934f7eadc9427bbb25e17,
     type: 2}
   road: {fileID: 1995516344225188, guid: 0fae92d4941e540f6abcfd3d4351e6db, type: 2}
+  terrain: {fileID: 1923158732289484, guid: 302a34f7a4749459380d3fa1ca6d191d, type: 2}
+  mountain: {fileID: 1948406263984082, guid: 8732d563a511d834e823ac895b8a4004, type: 2}
   roadLeftEdgeX: 0
   roadRightEdgeX: 0
 --- !u!114 &114669709668200490

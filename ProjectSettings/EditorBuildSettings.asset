@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/CarGame.unity
-    guid: 51a70ce06337c45a28cd336cc04ef24a
+    path: Assets/Scenes/Main.unity
+    guid: 6b7150905aa9949779749becdcbee6f6
+  - enabled: 1
+    path: Assets/Scenes/UnityARKitScene.unity
+    guid: c159f2591a9b5c843b0a0442451f78f8
   m_configObjects: {}

@@ -73,13 +73,13 @@ public class UIManager : MonoBehaviour {
     {
         Screen.orientation = ScreenOrientation.Portrait;
 
-        GameCamera.enabled = false;
-
         gameCanvas.SetActive(false);
 
         homeGarageCanvas.SetActive(true);
         homeScreen.SetActive(true);
         garageScreen.SetActive(false);
+
+        GameCamera.enabled = false;
     }
 	
     //transitions to the pregame page
@@ -118,6 +118,7 @@ public class UIManager : MonoBehaviour {
 
     }
 
+    //transistions to garage page
     public void TransitionToGarage()
     {
         Screen.orientation = ScreenOrientation.Portrait;
@@ -144,9 +145,9 @@ public class UIManager : MonoBehaviour {
 
     private void InstantiateModelCar(int chosenCar){
         //creating the car on the homepage
-        carInstance = Instantiate(allCars[chosenCar], new Vector3(500, -350, -300), Quaternion.Euler(193, 90, -160));
+        carInstance = Instantiate(allCars[chosenCar], new Vector3(800, -360, -300), Quaternion.Euler(193, 90, -160));
         carInstance.AddComponent<RectTransform>();
-        carInstance.GetComponent<RectTransform>().localScale = new Vector3(170, 170, 170);
+        carInstance.GetComponent<RectTransform>().localScale = new Vector3(160, 160, 160);
 
         if (carInstance.tag == "Bus")
         {
@@ -155,6 +156,8 @@ public class UIManager : MonoBehaviour {
 
         //setting the homepage car to be under our model car holder
         carInstance.transform.SetParent(modelCarHolder);
+
+        carInstance.AddComponent<RotateOnTouch>();
 
         //adding all the car models to our list
         carList.Add(carInstance);
@@ -167,15 +170,14 @@ public class UIManager : MonoBehaviour {
         //if it's not running, just start
         if (GameManager.instance == null)
         {
-            Instantiate(gameManager);
+            Instantiate(gameManager, new Vector3(0, 0, 0), Quaternion.identity);
         }
         else
         {
-            print("this is happening");
             destroyGameManager();
             GameManager.instance = null;
             Player.instance = null;
-            Instantiate(gameManager);
+            Instantiate(gameManager, new Vector3(0, 0, 0), Quaternion.identity);
         }
     }
 
@@ -247,5 +249,4 @@ public class UIManager : MonoBehaviour {
         playerChosenCar = 7;
         SetCarmodel(playerChosenCar, carList);
     }
-
 }

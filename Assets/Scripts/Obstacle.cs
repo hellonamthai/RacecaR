@@ -30,8 +30,8 @@ public class Obstacle : ScrollingObject {
         RaycastHit hitLeft;
         RaycastHit hitRight;
 
-        Vector3 posLeft = new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.z);
-        Vector3 posRight = new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z);
+        Vector3 posLeft = new Vector3(transform.position.x - 0.45f, transform.position.y, transform.position.z);
+        Vector3 posRight = new Vector3(transform.position.x + 0.45f, transform.position.y, transform.position.z);
 
         bool didHitLeft = Physics.Raycast(posLeft, transform.TransformDirection(Vector3.forward), out hitLeft, raycastDistance, layerMask);
         bool didHitRight = Physics.Raycast(posRight, transform.TransformDirection(Vector3.forward), out hitRight, raycastDistance, layerMask);
@@ -82,7 +82,7 @@ public class Obstacle : ScrollingObject {
 
         //calling the dodge coroutine with the boolean parameter
         currentlyDodging = true;
-        IEnumerator smoothDodgeCoroutine= SmoothDodge(dodgeLeft);
+        IEnumerator smoothDodgeCoroutine = SmoothDodge(dodgeLeft);
         yield return StartCoroutine(smoothDodgeCoroutine);
         currentlyDodging = false;
 
@@ -104,15 +104,16 @@ public class Obstacle : ScrollingObject {
         else dodgeDirection = 1;
 
 
-        //each frame move the car 0.01 to the left or right
+        //each frame move the car 0.1 to the left or right
         for (int i = 1; i < 7; i++)
         {
             transform.Translate(new Vector3(0.1f * dodgeDirection, 0, 0), Space.World);
             //changing how long it takes to dodge based on in game time
-            if(Time.time < 15){
-                yield return new WaitForSeconds(0.1f-Time.time*0.05f);
-            }
-            else yield return null;
+            //if(GameManager.instance.playerScore < 75){
+            //    yield return new WaitForSeconds(0.1f-GameManager.instance.playerScore*0.01f);
+            //}
+            //else yield return null;
+            yield return null;
         }
     }
 }

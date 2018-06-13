@@ -11,11 +11,13 @@ public class Player : MonoBehaviour {
     public static event gameOverDelegate GameOver;
 
     private Transform playerPosition;
-    private int direction;
     private float playerSwerveSpeed = 0.3f;
     private int turnAngle = 20;
     private GameObject myCamera;
     private bool playerCanMove;
+    private float screenCenter = Screen.height / 2;
+    private Vector2 tapPoint;
+    private float direction;
 
 
 
@@ -48,44 +50,63 @@ public class Player : MonoBehaviour {
     }
 
     private void Swerve(){
+        
+        //getting input for controls depending on build version
 
-        //getting input
-        direction = (int)Input.GetAxisRaw("Horizontal");
+        #if UNITY_STANDALONE || UNITY_WEBPLAYER
+     
+        direction = Input.GetAxisRaw("Horizontal");
+
+        #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+
+        if (Input.touchCount > 0)
+        {
+            tapPoint = Input.GetTouch(0).position;
+            direction = tapPoint.x;
+        }
+        else
+        {
+            direction = screenCenter;
+        }
+
+        #endif //End of mobile platform dependendent compilation section started above with #elif
+
+
+        //float direction = Input.GetAxisRaw("Horizontal");
 
         //moving player based on position
-        if (direction > 0)
+        if (direction > screenCenter)
         {
             //moving right and rotating the car a bit to that direction
             playerPosition.rotation = Quaternion.Euler(0, 1*turnAngle, 0);
             //can only swerve more to the right if not at the right end of the road
             if(playerPosition.position.x < GameManager.instance.GetComponent<BoardManager>().roadRightEdgeX-0.5f){
                 //moving both the player and the camera
-                playerPosition.Translate(Vector3.right * playerSwerveSpeed, Space.World);
-                myCamera.transform.Translate(Vector3.right * playerSwerveSpeed, Space.World);
+                playerPosition.Translate(Vector3.right * playerSwerveSpeed * Time.deltaTime*60, Space.World);
+                myCamera.transform.Translate(Vector3.right * playerSwerveSpeed * Time.deltaTime*60, Space.World);
             }
         }
-        else if (direction < 0)
+        else if (direction < screenCenter)
         {
             //moving left and rotating the car a bit to that direction
             playerPosition.rotation = Quaternion.Euler(0, -1*turnAngle, 0);
             //can only swerve more to the right if not at the right end of the road
             if(playerPosition.position.x > GameManager.instance.GetComponent<BoardManager>().roadLeftEdgeX+0.5f){
                 //moving both the player and the camera
-                playerPosition.Translate(Vector3.left * playerSwerveSpeed, Space.World);
-                myCamera.transform.Translate(Vector3.left * playerSwerveSpeed, Space.World);
+                playerPosition.Translate(Vector3.left * playerSwerveSpeed * Time.deltaTime*60, Space.World);
+                myCamera.transform.Translate(Vector3.left * playerSwerveSpeed * Time.deltaTime*60, Space.World);
             }
         }
-        else
-        {
+        else {
             //if the car was moving right but isn't anymore, slowly rotate it left back to starting position
-            if (playerPosition.rotation.eulerAngles.y < turnAngle+1 && playerPosition.rotation.eulerAngles.y > 1)
+            if (playerPosition.rotation.eulerAngles.y < turnAngle + 1 && playerPosition.rotation.eulerAngles.y > 1)
             {
-                playerPosition.Rotate(Vector3.down);
+                playerPosition.Rotate(Vector3.down * Time.deltaTime * 60);
             }
             //if the car was moving left but isn't anymore, slowly rotate it right back to starting position
-            else if (playerPosition.rotation.eulerAngles.y > 360-(turnAngle+1) && playerPosition.rotation.eulerAngles.y < 359)
+            else if (playerPosition.rotation.eulerAngles.y > 360 - (turnAngle + 1) && playerPosition.rotation.eulerAngles.y < 359)
             {
-                playerPosition.Rotate(Vector3.up);
+                playerPosition.Rotate(Vector3.up * Time.deltaTime * 60);
             }
         }
     }
