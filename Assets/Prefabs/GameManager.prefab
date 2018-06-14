@@ -54,6 +54,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerScore: 0
+  scoreCounter: {fileID: 0}
 --- !u!114 &114544454900499382
 MonoBehaviour:
   m_ObjectHideFlags: 1

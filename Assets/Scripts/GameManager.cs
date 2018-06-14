@@ -30,8 +30,8 @@ public class GameManager : MonoBehaviour {
         }
 
         //finding references to the score texts
-        distanceText = GameObject.Find("ScoreCounterText").GetComponent<Text>();
         playerScore = 0;
+        distanceText = GameObject.FindWithTag("Score").GetComponent<Text>();
         LoadGameData();
 
     }
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour {
     private void FinishedGame(){
         gameData.UpdateHighScore(playerScore);
         gameOverPanelText = GameObject.Find("FinalScoreText").GetComponent<Text>();
-        gameOverPanelText.text = "Distance driven:  " + playerScore + "m"  + "\nYour Best:  " + gameData.highScore + "m";
+        gameOverPanelText.text = "Driven:  " + playerScore + "m"  + "\nBest:  " + gameData.highScore + "m";
         SaveGameData();
     } 
 

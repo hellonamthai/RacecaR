@@ -15,7 +15,7 @@ public class Player : MonoBehaviour {
     private int turnAngle = 20;
     private GameObject myCamera;
     private bool playerCanMove;
-    private float screenCenter = Screen.height / 2;
+    private float screenCenter = Screen.width / 2;
     private Vector2 tapPoint;
     private float direction;
 

@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour {
     public static UIManager instance;
 
     public GameObject gameManager;
+    public GameObject soundManager;
     public Camera GameCamera;
 
     public GameObject gameCanvas;
@@ -80,6 +81,8 @@ public class UIManager : MonoBehaviour {
         garageScreen.SetActive(false);
 
         GameCamera.enabled = false;
+
+        soundManager.GetComponent<SoundManager>().PlayMenuMusic();
     }
 	
     //transitions to the pregame page
@@ -92,13 +95,14 @@ public class UIManager : MonoBehaviour {
         gameCanvas.SetActive(true);
         homeGarageCanvas.SetActive(false);
 
-        scoreCounter.GetComponent<Text>().enabled = false;
         postGamePanel.SetActive(false);
         pregameButton.SetActive(true);
 
         SetupGame();
 
         GameCamera.GetComponent<Transform>().position = new Vector3(0, 5.95f, -10);
+
+        soundManager.GetComponent<SoundManager>().PlayDriveMusic();
 
     }
 
@@ -116,6 +120,7 @@ public class UIManager : MonoBehaviour {
         postGamePanel.SetActive(true);
         pregameButton.SetActive(false);
 
+        soundManager.GetComponent<SoundManager>().PlayEndGameSound();
     }
 
     //transistions to garage page
@@ -131,6 +136,7 @@ public class UIManager : MonoBehaviour {
         homeScreen.SetActive(false);
         garageScreen.SetActive(true);
 
+        soundManager.GetComponent<SoundManager>().PlayGarageMusic();
     }
 
     // starts the game from the instructionsButton 

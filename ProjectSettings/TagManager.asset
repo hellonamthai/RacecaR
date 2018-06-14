@@ -9,6 +9,7 @@ TagManager:
   - Terrain
   - Road
   - Canvas
+  - Score
   layers:
   - Default
   - TransparentFX
