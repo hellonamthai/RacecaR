@@ -6,8 +6,6 @@ using System.IO;
 
 public class GameManager : MonoBehaviour {
 
-    //implementing singleton design pattern
-
     public static GameManager instance = null;
     public int playerScore;
 
@@ -56,6 +54,7 @@ public class GameManager : MonoBehaviour {
         gameData.UpdateHighScore(playerScore);
         gameOverPanelText = GameObject.Find("FinalScoreText").GetComponent<Text>();
         gameOverPanelText.text = "Driven:  " + playerScore + "m"  + "\nBest:  " + gameData.highScore + "m";
+
         SaveGameData();
     } 
 

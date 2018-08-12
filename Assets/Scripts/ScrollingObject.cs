@@ -6,8 +6,8 @@ public class ScrollingObject : MonoBehaviour {
 
     public static ScrollingObject instance;
     
-    public int minSpeed = 10;
-    public int maxSpeed = 30;
+    [HideInInspector]public int minSpeed = 10;
+    [HideInInspector]public int maxSpeed = 30;
 
     private Rigidbody myRigidbody;
 
@@ -23,7 +23,7 @@ public class ScrollingObject : MonoBehaviour {
 	}
 
     void FreezeMotion(){
-        myRigidbody.isKinematic = true;
+        myRigidbody.velocity = Vector3.zero;
     }
 
     private void OnEnable()

@@ -10,6 +10,7 @@ TagManager:
   - Road
   - Canvas
   - Score
+  - Plane
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - 
   - PostProcessing
   - Obstacle
-  - 
+  - HiddenCar
   - 
   - 
   - 

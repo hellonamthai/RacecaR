@@ -20,7 +20,7 @@ public class BoardManager : MonoBehaviour {
         boardHolder = new GameObject("Board").transform;
         SetUpBoard();
         //Used to put all the road and obstacle components under one board parent; purely organizational
-        boardHolder.SetParent(GetComponent<GameManager>().transform);
+        boardHolder.SetParent(GetComponent<BoardManager>().transform);
 	}
 
 
@@ -48,7 +48,7 @@ public class BoardManager : MonoBehaviour {
         GameObject terrainInstance;
         for (int i = 0; i < 2; i++){
             for (int k = 0; k < 2; k++){
-                terrainInstance = Instantiate(terrain, new Vector3(43+20*i, -85, 105+119*k), Quaternion.identity);
+                terrainInstance = Instantiate(terrain, new Vector3(43+20*i, -85, 106+119*k), Quaternion.identity);
                 terrainInstance.transform.SetParent(boardHolder);
             }
         }
@@ -58,7 +58,7 @@ public class BoardManager : MonoBehaviour {
         {
             for (int k = 0; k < 2; k++)
             {
-                terrainInstance = Instantiate(terrain, new Vector3(-14.5f + 20 * i, -85, 105 + 119 * k), Quaternion.identity);
+                terrainInstance = Instantiate(terrain, new Vector3(-14.5f + 20 * i, -85, 106 + 119 * k), Quaternion.identity);
                 terrainInstance.transform.SetParent(boardHolder);
             }
         }

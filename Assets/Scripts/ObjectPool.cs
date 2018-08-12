@@ -17,7 +17,7 @@ public class ObjectPool : MonoBehaviour {
         else if(other.tag == "Terrain"){
             float oldXpos = other.GetComponent<Transform>().position.x;
             float oldYpos = other.GetComponent<Transform>().position.y;
-            other.GetComponent<Transform>().position = new Vector3(oldXpos, oldYpos, 224f);
+            other.GetComponent<Transform>().position = new Vector3(oldXpos, oldYpos, 219f);
         }
         else {
             //resetting the obstacle cars to the end of the platform at a random x position and increase their speed

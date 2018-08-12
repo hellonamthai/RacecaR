@@ -19,7 +19,8 @@ public class Player : MonoBehaviour {
     private Vector2 tapPoint;
     private float direction;
 
-
+    private float roadRightEdge;
+    private float roadLeftEdge;
 
     // Use this for initialization
     void Awake()
@@ -39,6 +40,11 @@ public class Player : MonoBehaviour {
         //findin a reference to the main camera
         myCamera = GameObject.FindWithTag("MainCamera");
         playerCanMove = true;
+
+        //finding the right and left edges of the road through the board manager
+        GameObject myBoardManager = GameObject.Find("BoardManager");
+        roadLeftEdge = myBoardManager.GetComponent<BoardManager>().roadLeftEdgeX;
+        roadRightEdge = myBoardManager.GetComponent<BoardManager>().roadRightEdgeX;
     }
 
 
@@ -80,7 +86,7 @@ public class Player : MonoBehaviour {
             //moving right and rotating the car a bit to that direction
             playerPosition.rotation = Quaternion.Euler(0, 1*turnAngle, 0);
             //can only swerve more to the right if not at the right end of the road
-            if(playerPosition.position.x < GameManager.instance.GetComponent<BoardManager>().roadRightEdgeX-0.5f){
+            if(playerPosition.position.x < roadRightEdge-0.5f){
                 //moving both the player and the camera
                 playerPosition.Translate(Vector3.right * playerSwerveSpeed * Time.deltaTime*60, Space.World);
                 myCamera.transform.Translate(Vector3.right * playerSwerveSpeed * Time.deltaTime*60, Space.World);
@@ -91,7 +97,7 @@ public class Player : MonoBehaviour {
             //moving left and rotating the car a bit to that direction
             playerPosition.rotation = Quaternion.Euler(0, -1*turnAngle, 0);
             //can only swerve more to the right if not at the right end of the road
-            if(playerPosition.position.x > GameManager.instance.GetComponent<BoardManager>().roadLeftEdgeX+0.5f){
+            if(playerPosition.position.x > roadLeftEdge+0.5f){
                 //moving both the player and the camera
                 playerPosition.Translate(Vector3.left * playerSwerveSpeed * Time.deltaTime*60, Space.World);
                 myCamera.transform.Translate(Vector3.left * playerSwerveSpeed * Time.deltaTime*60, Space.World);
@@ -121,7 +127,32 @@ public class Player : MonoBehaviour {
             //calling the delegate
             playerCanMove = false;
             GameOver();
+            //other.isTrigger = false;
+            //GetComponent<Collider>().isTrigger = false;
+            //Rigidbody playerRB = GetComponent<Rigidbody>();
+            //Rigidbody otherRB = other.GetComponent<Rigidbody>();
+            //CarCrash(ref playerRB, ref otherRB);
         }
 	}
+
+
+    //simulating a car crash
+    private void CarCrash(ref Rigidbody playerCar, ref Rigidbody otherCar){
+        
+        otherCar.isKinematic = false;
+        otherCar.constraints = RigidbodyConstraints.None;
+
+        playerCar.isKinematic = false;
+        playerCar.constraints = RigidbodyConstraints.None;
+
+        Vector3 crashPositionPlayer = playerCar.GetComponent<Transform>().position + new Vector3(5, 0, -5);
+        Vector3 crashPositionOther = otherCar.GetComponent<Transform>().position + new Vector3(-5, 0, 5);
+
+        playerCar.AddExplosionForce(4000f, crashPositionPlayer, 10);
+        otherCar.AddExplosionForce(4000f, crashPositionOther, 10);
+        
+
+        
+    }
 
 }

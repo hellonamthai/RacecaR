@@ -6,6 +6,8 @@ public class Obstacle : ScrollingObject {
 
     private bool currentlyDodging;
     private float raycastDistance;
+    private float roadRightEdge;
+    private float roadLeftEdge;
 
 	// Use this for initialization
 	void Awake () {
@@ -17,6 +19,11 @@ public class Obstacle : ScrollingObject {
         if(gameObject.tag == "Bus"){
             raycastDistance = 9f;
         }
+
+        //finding the right and left edges of the road through the board manager
+        GameObject myBoardManager = GameObject.Find("BoardManager");
+        roadLeftEdge = myBoardManager.GetComponent<BoardManager>().roadLeftEdgeX;
+        roadRightEdge = myBoardManager.GetComponent<BoardManager>().roadRightEdgeX;
 	}
 	
 	// Update is called once per frame
@@ -38,15 +45,15 @@ public class Obstacle : ScrollingObject {
 
         bool dodgeLeft;
 
-        //if any of our raycasts hit, meaning there is another car in front
+        //if any of our raycasts hit, meaning there is another car in front and we're currently not in the process of dodging
         if (didHitLeft || didHitRight && !currentlyDodging)
         {
             //if the car is already too far on the right
-            if(transform.position.x > GameManager.instance.GetComponent<BoardManager>().roadRightEdgeX-1){
+            if(transform.position.x > roadRightEdge-1){
                 dodgeLeft = true;
             }
             //if the car is already too far on the left
-            else if(transform.position.x < GameManager.instance.GetComponent<BoardManager>().roadLeftEdgeX+1){
+            else if(transform.position.x < roadLeftEdge+1){
                 dodgeLeft = false;
             }
             else {

@@ -7,32 +7,43 @@ public class UIManager : MonoBehaviour {
 
     public static UIManager instance;
 
+    //all items necessary for gameplay
     public GameObject gameManager;
     public GameObject soundManager;
     public Camera GameCamera;
 
+    //all gameobjects necessary for gameplay UI
     public GameObject gameCanvas;
     public GameObject pregameButton;
     public GameObject postGamePanel;
     public GameObject scoreCounter;
 
+    //all items necessary for general UI
     public GameObject homeGarageCanvas;
     public GameObject garageScreen;
     public GameObject homeScreen;
 
+    //a list of all car prefabs(models) available to use
     public List<GameObject> allCars;
-
     public int playerChosenCar;
 
+    //delegate that calls functions when we start the game
     public delegate void StartGameDelegate();
     public static StartGameDelegate objectsBeginMoving;
 
+    //delegate that calls functions when we transition to the pregame page
     public delegate void PreGameDelegate();
     public static PreGameDelegate destroyGameManager;
 
     private GameObject carInstance;
     private Transform modelCarHolder;
     private List<GameObject> carList;
+
+    private Vector3 gameCameraPosition = new Vector3(0, 5.95f, -10);
+    private Vector3 modelCarPosition = new Vector3(800, -380, -300);
+    private Quaternion modelCarRotation = Quaternion.Euler(193, 90, -160);
+    private Vector3 modelCarScale = new Vector3(160, 160, 160);
+    private Vector3 modelBusScale = new Vector3(100, 100, 100);
 
 	void Awake()
 	{
@@ -51,19 +62,21 @@ public class UIManager : MonoBehaviour {
         //start up at home page
         TransitionToHome();
 
+        //creating organizational tools
         carList = new List<GameObject>();
-
-        //creating an organizational tool
         modelCarHolder = new GameObject("Model Car Holder").transform;
 
         //instantiating all model cars
         for (int i = 0; i < 8; i++){
+            //instantiates all the different types of car prefabs at the same position in the home screen and puts them under the above orgranizational tools
             InstantiateModelCar(i);
         }
 
+        //sets the model car holder (that holds all the model cars) to be under the homeGarage canvas gameobject
         RectTransform myCanvasTransform = homeGarageCanvas.GetComponent<RectTransform>();
         modelCarHolder.SetParent(myCanvasTransform);
 
+        //sets the current car model to the car chosen by the player
         SetCarmodel(playerChosenCar, carList);
 
 	}
@@ -100,7 +113,7 @@ public class UIManager : MonoBehaviour {
 
         SetupGame();
 
-        GameCamera.GetComponent<Transform>().position = new Vector3(0, 5.95f, -10);
+        GameCamera.GetComponent<Transform>().position = gameCameraPosition;
 
         soundManager.GetComponent<SoundManager>().PlayDriveMusic();
 
@@ -139,7 +152,7 @@ public class UIManager : MonoBehaviour {
         soundManager.GetComponent<SoundManager>().PlayGarageMusic();
     }
 
-    // starts the game from the instructionsButton 
+    // starts the game when the pregame panel Button is clicked
     private void StartGame()
     {
         pregameButton.SetActive(false);
@@ -151,18 +164,19 @@ public class UIManager : MonoBehaviour {
 
     private void InstantiateModelCar(int chosenCar){
         //creating the car on the homepage
-        carInstance = Instantiate(allCars[chosenCar], new Vector3(800, -360, -300), Quaternion.Euler(193, 90, -160));
+        carInstance = Instantiate(allCars[chosenCar], modelCarPosition, modelCarRotation);
         carInstance.AddComponent<RectTransform>();
-        carInstance.GetComponent<RectTransform>().localScale = new Vector3(160, 160, 160);
+        carInstance.GetComponent<RectTransform>().localScale = modelCarScale;
 
         if (carInstance.tag == "Bus")
         {
-            carInstance.GetComponent<RectTransform>().localScale = new Vector3(100, 100, 100);
+            carInstance.GetComponent<RectTransform>().localScale = modelBusScale;
         }
 
         //setting the homepage car to be under our model car holder
         carInstance.transform.SetParent(modelCarHolder);
 
+        //adds the script so that the model car can be rotated by scrubbing
         carInstance.AddComponent<RotateOnTouch>();
 
         //adding all the car models to our list
@@ -176,14 +190,14 @@ public class UIManager : MonoBehaviour {
         //if it's not running, just start
         if (GameManager.instance == null)
         {
-            Instantiate(gameManager, new Vector3(0, 0, 0), Quaternion.identity);
+            Instantiate(gameManager, Vector3.zero, Quaternion.identity);
         }
         else
         {
             destroyGameManager();
             GameManager.instance = null;
             Player.instance = null;
-            Instantiate(gameManager, new Vector3(0, 0, 0), Quaternion.identity);
+            Instantiate(gameManager, Vector3.zero, Quaternion.identity);
         }
     }
 
@@ -197,6 +211,8 @@ public class UIManager : MonoBehaviour {
         Player.GameOver -= TransitionToPostGame;
 	}
 
+    //sets the car model to be the one currently chosen by the player
+    //it does this by setting all the other cars' status to false
     private void SetCarmodel(int carModel, List<GameObject> carModelList){
         for (int i = 0; i < carModelList.Capacity; i++){
             if (i == carModel)
@@ -208,6 +224,7 @@ public class UIManager : MonoBehaviour {
     }
 
     //car picking functions
+    //each is called when their respective button is pressed and sets the model car to the chosen car
 
     public void PickRedCar(){
         playerChosenCar = 0;

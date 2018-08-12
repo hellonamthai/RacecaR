@@ -5,10 +5,11 @@ namespace UnityEngine.XR.iOS
 {
 	public class UnityARHitTestExample : MonoBehaviour
 	{
-        public static bool placement = true;
+        public static bool placement = false;
 		public Transform m_HitTransform;
 		public float maxRayDistance = 30.0f;
-		public LayerMask collisionLayer = 1 << 10;  //ARKitPlane layer
+		public LayerMask collisionLayer = 1 << 11;  //ARKitPlane layer
+        public GameObject sceneLight;
 
         bool HitTestWithResultType (ARPoint point, ARHitTestResultType resultTypes)
         {
@@ -16,10 +17,13 @@ namespace UnityEngine.XR.iOS
             if (hitResults.Count > 0) {
                 foreach (var hitResult in hitResults) {
                     Debug.Log ("Got hit!");
+                    //if the set button is pressed, allow the car to be placed. After the car is placed, disallow placement
                     if (placement)
                     {
                         m_HitTransform.position = UnityARMatrixOps.GetPosition(hitResult.worldTransform);
                         m_HitTransform.rotation = UnityARMatrixOps.GetRotation(hitResult.worldTransform);
+                        placement = false;
+
                     }
                     Debug.Log (string.Format ("x:{0:0.######} y:{1:0.######} z:{2:0.######}", m_HitTransform.position.x, m_HitTransform.position.y, m_HitTransform.position.z));
                     return true;
@@ -64,10 +68,10 @@ namespace UnityEngine.XR.iOS
 						//ARHitTestResultType.ARHitTestResultTypeExistingPlaneUsingGeometry,
                         ARHitTestResultType.ARHitTestResultTypeExistingPlaneUsingExtent, 
                         // if you want to use infinite planes use this:
-                        ARHitTestResultType.ARHitTestResultTypeExistingPlane,
-                        ARHitTestResultType.ARHitTestResultTypeEstimatedHorizontalPlane, 
-						ARHitTestResultType.ARHitTestResultTypeEstimatedVerticalPlane, 
-						ARHitTestResultType.ARHitTestResultTypeFeaturePoint
+                        //ARHitTestResultType.ARHitTestResultTypeExistingPlane,
+                        //ARHitTestResultType.ARHitTestResultTypeEstimatedHorizontalPlane, 
+						//ARHitTestResultType.ARHitTestResultTypeEstimatedVerticalPlane, 
+						//ARHitTestResultType.ARHitTestResultTypeFeaturePoint
                     }; 
 					
                     foreach (ARHitTestResultType resultType in resultTypes)

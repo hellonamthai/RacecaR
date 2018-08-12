@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4544196966507368}
   - component: {fileID: 114097270730821402}
-  - component: {fileID: 114544454900499382}
   - component: {fileID: 114669709668200490}
   m_Layer: 0
   m_Name: GameManager
@@ -54,26 +53,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerScore: 0
-  scoreCounter: {fileID: 0}
---- !u!114 &114544454900499382
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1051316311865626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27276538f7e054abf94f22041128313c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tile: {fileID: 1671743027739872, guid: dde02836f5929492a9841dd93db62d71, type: 2}
-  recyclingBox: {fileID: 1221767220602116, guid: cd248ecc01c934f7eadc9427bbb25e17,
-    type: 2}
-  road: {fileID: 1995516344225188, guid: 0fae92d4941e540f6abcfd3d4351e6db, type: 2}
-  terrain: {fileID: 1923158732289484, guid: 302a34f7a4749459380d3fa1ca6d191d, type: 2}
-  mountain: {fileID: 1948406263984082, guid: 8732d563a511d834e823ac895b8a4004, type: 2}
-  roadLeftEdgeX: 0
-  roadRightEdgeX: 0
 --- !u!114 &114669709668200490
 MonoBehaviour:
   m_ObjectHideFlags: 1

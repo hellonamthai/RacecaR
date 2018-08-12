@@ -16,6 +16,7 @@ public class CarsManager : MonoBehaviour {
         playerCar = UIManager.instance.playerChosenCar;
         obstacleHolder = new GameObject("Obstacles").transform;
         InitializePlayerCar();
+        carsArray.RemoveAt(playerCar);
         InitializeObstacleCars();
         //used to organize my obstacle cars
         obstacleHolder.SetParent(GetComponent<GameManager>().transform);
@@ -28,7 +29,6 @@ public class CarsManager : MonoBehaviour {
         {
             playerInstance.GetComponent<Transform>().Translate(new Vector3(0, 0.3f, 0));
         }
-        carsArray.RemoveAt(playerCar);
         playerInstance.name = "Player";
         playerInstance.tag = "Player";
         playerInstance.AddComponent<Player>();
@@ -40,7 +40,6 @@ public class CarsManager : MonoBehaviour {
         //Setting up our set of obstacles that we're going to recycle
         for (int i = 0; i < 12; i++)
         {
-
             int randomCar = Random.Range(0, carsArray.Capacity-1);
             Vector3 randomPosition = new Vector3(Random.Range(-8.5f, 8.5f), 0.5f, Random.Range(20, 110));
 
