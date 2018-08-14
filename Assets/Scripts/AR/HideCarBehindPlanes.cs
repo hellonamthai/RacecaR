@@ -39,7 +39,7 @@ public class HideCarBehindPlanes : MonoBehaviour {
 
         Vector3 cameraPosition = transform.position;
 
-        if (UnityEngine.XR.iOS.UnityARHitTestExample.placement == true){
+        if (CarControls.firstTime == false){
             
             //for each section of the car, we are constatly shooting out rays to check whether our line of sight from the camera is blocked or not
             for (int i = 0; i < wholeCar.Count; i++)

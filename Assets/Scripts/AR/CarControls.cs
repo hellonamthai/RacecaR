@@ -13,6 +13,8 @@ public class CarControls : MonoBehaviour {
     public Transform myTransform;
     public Rigidbody myRB;
 
+    public static bool firstTime = true;
+
 	private void Awake()
 	{
 
@@ -58,11 +60,14 @@ public class CarControls : MonoBehaviour {
 
         UnityEngine.XR.iOS.UnityARHitTestExample.placement = true;
 
-        //setting the car to visible
-        foreach (Transform child in transform)
-        {
-            child.gameObject.layer = 0;
-        }
+        if(firstTime){
+            //setting the car to visible
+            foreach (Transform child in transform)
+            {
+                child.gameObject.layer = 0;
+            }
 
+            firstTime = false;
+        }
     }
 }

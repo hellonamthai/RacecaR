@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33975515242258592}
   - component: {fileID: 135719125020529502}
   - component: {fileID: 23860415727414328}
+  - component: {fileID: 114211768337024890}
   m_Layer: 0
   m_Name: PointCloudPrefab
   m_TagString: Untagged
@@ -51,9 +52,11 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 3a044f7471feb4bd4be40dcec09eae05, type: 2}
   m_StaticBatchInfo:
@@ -66,6 +69,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -81,6 +85,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1845574417345784}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114211768337024890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1845574417345784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85e5b0164c43a4d2db563ee9865a07d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myMeshRenderer: {fileID: 23860415727414328}
 --- !u!135 &135719125020529502
 SphereCollider:
   m_ObjectHideFlags: 1

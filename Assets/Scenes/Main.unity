@@ -2408,10 +2408,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\n\nYou're driving home from work one day when your spouse calls. She says,
-    'Honey, I just heard on the news that there's a car going the wrong way on the
-    road you usually take. Be careful!'\n\n'Hell', you reply, 'it's not just one car.
-    There's hundreds of them!'\n\n\n\n\n\u2190 Tap to Steer \u2192\n\n\n\n\n\nTap
+  m_Text: "\n\nYou're driving home from work one day when your spouse calls. They
+    say, 'Honey, I just heard on the news that there's a car going the wrong way on
+    the road you usually take. Be careful!'\n\n'Hell', you reply, 'it's not just one
+    car. There's hundreds of them!'\n\n\n\n\n\u2190 Tap to Steer \u2192\n\n\n\n\n\nTap
     anywhere to begin!"
 --- !u!222 &661917925
 CanvasRenderer:
