@@ -20,7 +20,7 @@ namespace UnityEngine.XR.iOS
                     //if the set button is pressed, allow the car to be placed. After the car is placed, disallow placement
                     if (placement)
                     {
-                        m_HitTransform.position = UnityARMatrixOps.GetPosition(hitResult.worldTransform);
+                        m_HitTransform.position = UnityARMatrixOps.GetPosition(hitResult.worldTransform) + new Vector3(0, 0, 0.2f);
                         m_HitTransform.rotation = UnityARMatrixOps.GetRotation(hitResult.worldTransform);
                         placement = false;
 

@@ -15,12 +15,14 @@ public class CarControls : MonoBehaviour {
 
     public static bool firstTime = true;
 
+    private float velocityConstant = 0.1f;
+
 	private void Awake()
 	{
 
         Screen.orientation = ScreenOrientation.LandscapeLeft;
 
-        myRB.drag = 1;
+        myRB.drag = 2;
         myRB.angularDrag = 0.5f;
 
         //hiding the car when the game first starts
@@ -38,11 +40,11 @@ public class CarControls : MonoBehaviour {
 
         //if gas button is pressed, give the car acceleration
         if(gasButton.GetComponent<Gas>().pressed){
-            myRB.velocity = myRB.velocity + forwardVector * 0.5f;
+            myRB.velocity = myRB.velocity + forwardVector * velocityConstant;
         }
 
         if(reverseButton.GetComponent<Reverse>().pressed){
-            myRB.velocity = myRB.velocity - forwardVector * 0.5f;
+            myRB.velocity = myRB.velocity - forwardVector * velocityConstant;
         }
 
         if(leftButton.GetComponent<TurnLeft>().pressed){
@@ -55,10 +57,12 @@ public class CarControls : MonoBehaviour {
         }
 	}
 
-    public void SwitchPlacement()
+    public void SetButton()
     {
 
         UnityEngine.XR.iOS.UnityARHitTestExample.placement = true;
+
+        myRB.velocity = Vector3.zero;
 
         if(firstTime){
             //setting the car to visible

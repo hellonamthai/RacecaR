@@ -367,7 +367,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &63572920
 MonoBehaviour:
@@ -987,7 +987,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1918725553}
-        m_MethodName: SwitchPlacement
+        m_MethodName: SetButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1164,8 +1164,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 130, y: -30}
-  m_SizeDelta: {x: 60, y: 60}
+  m_AnchoredPosition: {x: 150, y: -50}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1005673184
 MonoBehaviour:
@@ -1592,10 +1592,10 @@ RectTransform:
   m_Father: {fileID: 1089703542}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -130}
-  m_SizeDelta: {x: 60, y: 60}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -150, y: -50}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1224739177
 MonoBehaviour:
@@ -2018,7 +2018,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 25, y: 25}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1526936286
 MonoBehaviour:
@@ -2504,14 +2504,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Welcome to the future of levitating cars. To begin driving, you need to
-    first materialize planes. \n\nDo this by walking around with your phone and scanning
-    flat, textured surfaces. Once a blue rectangle appears, that plane has been materialized.\n\nYou
-    can now press the \"Set\" button on the top right hand corner and click anywhere
-    on the materialized plane to transport your car there.\n\nSadly, this isn't a
-    flying car, so if you drive off a plane you'll unfortunately fall into the dark,
-    bottomless void that encompasses all. Happy driving!\n\nJust kidding, if that
-    happens just use \"Set\" again to reset your car. "
+  m_Text: "\nWelcome to the future of levitating cars. To begin driving, you need
+    to first materialize planes. \n\nDo this by walking around with your phone and
+    scanning flat, textured surfaces. Once a blue rectangle appears, that plane has
+    been materialized.\n\nYou can now press the \"Set\" button on the top right hand
+    corner and click anywhere on the materialized plane to transport your car there.
+    The button next to it toggles plane visibility on and off.\n\nNote: Your car won't
+    be visible behind solid objects!"
 --- !u!222 &1742186503
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2688,11 +2687,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4626372476116952, guid: 63161359fa34b41a7aa0fa171cbfe6c0, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.17928901
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4626372476116952, guid: 63161359fa34b41a7aa0fa171cbfe6c0, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.65778357
+      value: -0.939
       objectReference: {fileID: 0}
     - target: {fileID: 4626372476116952, guid: 63161359fa34b41a7aa0fa171cbfe6c0, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2746,7 +2745,7 @@ Prefab:
     - target: {fileID: 65921864914458578, guid: 63161359fa34b41a7aa0fa171cbfe6c0,
         type: 2}
       propertyPath: m_Center.y
-      value: 0.4109817
+      value: 0.69505423
       objectReference: {fileID: 0}
     - target: {fileID: 65921864914458578, guid: 63161359fa34b41a7aa0fa171cbfe6c0,
         type: 2}
@@ -2756,7 +2755,7 @@ Prefab:
     - target: {fileID: 65921864914458578, guid: 63161359fa34b41a7aa0fa171cbfe6c0,
         type: 2}
       propertyPath: m_Size.y
-      value: 1.336044
+      value: 0.76789916
       objectReference: {fileID: 0}
     - target: {fileID: 4626372476116952, guid: 63161359fa34b41a7aa0fa171cbfe6c0, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2773,7 +2772,7 @@ Prefab:
     - target: {fileID: 54963967185818786, guid: 63161359fa34b41a7aa0fa171cbfe6c0,
         type: 2}
       propertyPath: m_Constraints
-      value: 0
+      value: 116
       objectReference: {fileID: 0}
     - target: {fileID: 114618437340257648, guid: 63161359fa34b41a7aa0fa171cbfe6c0,
         type: 2}
@@ -3292,7 +3291,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 27fa74d2b40ea429a9f8c5733fd63997, type: 3}
-    m_FontSize: 80
+    m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 4
